@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok文字起こしツール</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* ローディング画面のスタイル */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none; /* 初期状態では非表示 */
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold text-center mb-4">TikTok文字起こしツール</h1>
+        <form action="/transcribe" method="POST" onsubmit="showLoading()">
+            <div class="mb-4">
+                <label for="url" class="block text-sm font-medium text-gray-700 mb-1">TikTokリンク:</label>
+                <input type="text" id="url" name="url" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="TikTokのリンクを入力" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">文字起こし</button>
+        </form>
+    </div>
+
+    <!-- ローディング画面 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // ローディング画面を表示する関数
+        function showLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.style.display = 'flex'; // ローディング画面を表示
+        }
+    </script>
+</body>
+</html>
